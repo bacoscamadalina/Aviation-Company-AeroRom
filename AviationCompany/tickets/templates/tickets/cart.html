@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Introducem style-urile pe care dorim sa le aiba cosul de cumparaturi -->
+<style>
+    .btn-primary, .btn-danger {
+        background-color: #75D5AF;
+        border-color: #75D5AF;
+    }
+    .container {
+        margin-top: 20px;
+    }
+
+</style>
+
+<header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Coșul de cumpărături</h2>
+            <!-- Verificam daca exista o comanda si daca aceasta comanda are elemente-->
+            {% if order and order.items.exists %}
+            <h4>Detalii Zbor</h4>
+            <ul class="list-group mb-3">
+                <!-- Iteram prin rezervările făcute și afișăm toate elementele-->
+                {% for item in items %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <!-- Afișăm destinația de plecare și de sosire -->
+                    {{ item.item.price.destinations.name }} - {{ item.item.price.arrival.name }}
+                    <div>
+                        <!-- Afișăm numărul de pasageri, data plecării, data întoarcerii și prețul total -->
+                        <span>Pasageri: {{ item.item.quantity }}</span><br>
+                        <span>Data plecare: {{ item.item.depart_date }}</span><br>
+                        <span>Data întoarcere: {{ item.item.return_date }}</span><br>
+                        <span>Preț: €{{ item.total_price }}</span><br>
+                    </div>
+                    <!-- Formular pentru eliminarea unui element din coș -->
+                    <form action="{% url 'tickets:remove_from_cart' item.item.id %}" method="post" class="ml-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Elimină comanda</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+            <!-- Afișăm detaliile prețului inițial și prețului de după reducere -->
+            <h4>Detalii Preț</h4>
+            <p>Preț: €{{ total_price }}</p>
+            {% if discount_amount %}
+            <p>Discount aplicat: €{{ discount_amount }}</p>
+            <p>Preț după discount: €{{ total_price_after_discount }}</p>
+            {% endif %}
+            <!-- Secțiune pentru detaliile zborului și numele pasagerilor -->
+            <h4>Zborul și numele pasagerilor</h4>
+            <h7>Aici se va preciza zborul si numele pasagerilor.</h7>
+            <h9>(Ex: Zbor (Iași-Madeira) : Pasager1 - Dan Popescu)</h9>
+            <div class="form-group">
+                <textarea name="billing_details" id="name_details" class="form-control" rows="3"
+                          required></textarea>
+            </div>
+            <!-- Secțiune pentru metoda de plată și detalii de facturare -->
+            <h4>Metoda de Plată și Detalii de Facturare</h4>
+            <form action="{% url 'tickets:place_order' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="payment_method">Metoda de plată</label>
+                    <select name="payment_method" id="payment_method" class="form-control">
+                        <option value="credit_card">Credit Card</option>
+                        <option value="paypal">Transfer bancar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="billing_details">Detalii de Facturare</label>
+                    <textarea name="billing_details" id="billing_details" class="form-control" rows="3"
+                              required></textarea>
+                </div>
+                <!-- Butonul pentru plasarea comenzii -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Plasează comanda</button>
+                </div>
+            </form>
+            {% else %}
+            <!-- Afișăm un mesaj în cazul în care coșul de cumpărături este gol -->
+            <p class="text-center">Coșul tău de cumpărături este gol.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

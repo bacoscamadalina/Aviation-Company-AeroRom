@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AeroRom - Înregistrare{% endblock %}
+
+{% block content %}
+<head>
+    <!-- Stilurile folosite pentru pagina de înregistrare -->
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Times New Roman, sans-serif;
+            background-color: #ffffff;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .btn-custom {
+            background-color: #75D5AF;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #63c29a;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Antetul paginii -->
+<header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+<!-- Conținutul paginii -->
+<div class="content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Crează-ți un cont</div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <!-- Iteram prin elementele formularului si afisam campurile: username, email, pass1, pass2-->
+                            {% for field in form %}
+                                <div class="form-group row">
+                                    <label for="{{ field.id_for_label }}" class="col-md-4 col-form-label text-md-right">{{ field.label }}</label>
+                                    <div class="col-md-6">
+                                        <!-- Daca intervine o eroare, afisam mesajul de eroare-->
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            <small class="text-danger">{{ field.errors }}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-custom">Înregistrează-te</button>
+                                    <hr>
+                                    <p>Ai deja un cont? <a href="{% url 'users:login' %}" class="btn btn-link">Conectează-te aici</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+{% endblock %}

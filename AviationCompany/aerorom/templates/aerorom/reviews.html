@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Introducem style-urile pe care dorim sa le aiba pagina de vizualizare a recenziilor -->
+<style>
+    .fa-star {
+        color: #75D5AF;
+    }
+
+    .checked {
+        color: #75D5AF;
+    }
+</style>
+
+<header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+<!-- Continutul paginii -->
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Recenziile noastre</h1>
+    <!-- Iteram prin recenzii postate si preluam toate detaliile -->
+    {% for review in reviews %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-name">{{ review.nume }}</h5>
+            <p class="card-text">{{ review.content }}</p>
+            <p class="card-text">Rating:
+                {% if review.rating == 1 %}
+                    <span class="fa fa-star checked"></span>
+                {% endif %}
+                {% if review.rating == 2 %}
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                {% endif %}
+                {% if review.rating == 3 %}
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                {% endif %}
+                {% if review.rating == 4 %}
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                {% endif %}
+                {% if review.rating == 5 %}
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                {% endif %}
+            </p>
+            <p class="card-text"><small class="text-muted">Postat la: {{ review.post_date }}</small></p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

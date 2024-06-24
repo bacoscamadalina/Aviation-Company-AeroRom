@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Introducem style-urile pe care dorim sa le aiba pagina de cariere-->
+<style>
+    body {
+            font-family: Times New Roman, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+    .job-card {
+        margin-bottom: 30px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .job-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .job-description {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .apply-button {
+        background-color: #75D5AF;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .apply-button:hover {
+        background-color: #75D5AF;
+    }
+</style>
+<header>
+    <div class="container mt-4" >
+        <img src="{% static 'logo.png' %}" style="float: left; margin-right: 30px;">
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-md-2">
+            <h1 class="text-center mb-4">Joburi disponibile</h1>
+            <!-- Iteram in jobs-->
+            {% for job in jobs %}
+                <div class="job-card">
+                    <h2 class="job-title">{{ job.job_name }}</h2>
+                    <!-- Pentru a adăuga alineat. (Vezi funcția în views) -->
+                    <ul>
+                        {% for fragment in job.get_description_fragments %}
+                            {% if fragment %}
+                                <p>{{ fragment }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                    <a href="{% url 'aerorom:contact' %}" class="apply-button" >Aplică acum</a> <!-- Ne trimite pe pagina de contact -->
+                </div>
+            {% empty %}
+            <p>Nu există destinații disponibile momentan.</p>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

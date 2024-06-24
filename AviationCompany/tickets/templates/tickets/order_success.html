@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Introducem style-urile pe care dorim sa le aiba pagina de succes-->
+<style>
+    .btn-primary {
+        background-color: #75D5AF;
+        border-color: #75D5AF;
+    }
+    .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    h2,h3,h5 {
+            text-align : center
+            }
+
+</style>
+
+<header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+<div class="container">
+    <h2>Rezervarea zborului a fost efectuată cu succes! </h2>
+    <h3>Link-ul aferent plății și biletul vor fi trimise pe adresa dumneavoastră de email.</h3>
+    <h5>Vă rugăm să mai consultați o dată regulamentul pentru a vă bucura de o experiență de vis alături de
+        AeroRom.</h5>
+    <!-- Redirectionam catre regulament si catre pagina de rezervari -->
+    <a href="{% url 'aerorom:rules' %}" class="btn btn-primary">Citește regulamentul</a>
+    <a href="{% url 'tickets:tickets_list' %}" class="btn btn-primary">Înapoi la pagina de rezervări</a>
+</div>
+{% endblock %}

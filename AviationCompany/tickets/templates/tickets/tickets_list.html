@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezervă călătoria dorită cu AeroRom</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Introducem style-urile pe care dorim sa le aiba pagina de rezervări -->
+    <style>
+        body {
+            font-family: Times New Roman, sans-serif;
+        }
+
+        form {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #75D5AF;
+            border-color: #75D5AF;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #75D5AF;
+            transform: scale(1.05);
+        }
+
+
+        h1 {
+            text-align: center
+        }
+    </style>
+</head>
+
+<header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+<body>
+<div class="container">
+    <h1>Rezervă zborul dorit alături de AeroRom</h1>
+    <form action="" method="post" class="row g-3">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <label for="departure" class="form-label">Orașul de plecare:</label>
+            <select name="departure" id="departure" class="form-select">
+
+                <!-- Iterăm prin destinațiile și le afișăm numele-->
+                {% for destination in departure_destinations %}
+                <option value="{{ destination.id }}">{{ destination.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="arrival" class="form-label">Destinația:</label>
+            <select name="arrival" id="arrival" class="form-select">
+
+                {% for destination in arrival_destinations %}
+                <option value="{{ destination.id }}">{{ destination.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="flight-type" class="form-label">Tipul de zbor:</label>
+            <select name="flight-type" id="flight-type" class="form-select">
+                <option value="one_way">Dus</option>
+                <option value="round_trip">Dus-întors</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="depart-date" class="form-label">Plecare:</label>
+            <input type="date" id="depart-date" name="depart-date" class="form-control">
+        </div>
+        <div class="col-md-6">
+            <label for="return-date" class="form-label">Întoarcere:</label>
+            <input type="date" id="return-date" name="return-date" class="form-control">
+        </div>
+        <div class="col-md-6">
+            <label for="passengers" class="form-label">Numărul de pasageri:</label>
+            <input type="number" id="passengers" name="passengers" class="form-control">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Vezi Prețul</button>
+        </div>
+    </form>
+    <!-- Afisam pretul total, procentul de reducere și prețul după reducerea aplicată -->
+    {% if total_price %}
+    <div class="mt-4 p-3 border rounded">
+        <p>Preț initial: €{{ initial_price }}</p>
+        {% if discount_percentage %}
+        <p>Discount aplicat: {{ discount_percentage }}%</p>
+        <p>Preț după discount: €{{ total_price }}</p>
+        {% else %}
+        <p>Preț total: €{{ total_price }}</p>
+        {% endif %}
+        <!-- Formular pentru adăugarea prețului în coș -->
+        <form action="{% url 'tickets:add_to_cart' price.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Adaugă în coș</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
+
+{% endblock %}

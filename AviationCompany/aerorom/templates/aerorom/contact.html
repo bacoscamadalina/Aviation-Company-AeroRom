@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Introducem style-urile pe care dorim sa le aiba pagina de contact -->
+<style>
+
+    h1,h2 {
+        text-align : center;
+    }
+
+    .contact-info {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .contact-info li {
+        margin-bottom: 30px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    form {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #75D5AF;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+</style>
+<header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+<!-- Continutul paginii -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Bun venit pe pagina de contact AeroRom! </h1>
+            <h2 class="section-title">Contactează-ne</h2>
+            <p class="text-center">Dacă aveți întrebări sau sugestii, vă rugăm să ne contactați folosind formularul de
+                mai jos sau informațiile de contact:</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-unstyled contact-info">
+                <li>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i> Adresa: Str. Aviatiei , nr 27
+                </li>
+                <li>
+                    <i class="fa fa-phone" aria-hidden="true"></i> Telefon: +40(786)367214
+                </li>
+                <li>
+                    <i class="fa fa-envelope" aria-hidden="true"></i> Email: aerorom@aviatie.com </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2 class="section-title">Trimiteți-ne un mesaj</h2>
+            <form method="post">
+                {% csrf_token %}
+                <!-- Iteram prin "contact" -->
+                {% for i in contact %}
+                <div class="form-group">
+                    <li>
+                        <label for="id_name"> Nume: {{ i.name }}</label>
+                        <input type="text" name="name" id="id_name" class="form-control" required>
+                    </li>
+                </div>
+                <div class="form-group">
+                    <li>
+                        <label for="id_name"> Număr de telefon: {{ i.phone_number }}</label>
+                        <input type="text" name="phone" id="id_phone" class="form-control" required>
+                    </li>
+                </div>
+                <div class="form-group">
+                    </li>
+                    <label for="id_email">Email: {{ i.email }} </label>
+                    <input type="email" name="email" id="id_email" class="form-control" required>
+                    </li>
+                </div>
+                <div class="form-group">
+                    <li>
+                        <label for="id_message">Mesaj: {{ i.message }} </label>
+                        <textarea name="message" id="id_message" class="form-control" required></textarea>
+                    </li>
+                </div>
+                {% endfor %}
+                <!--Folosim un token CSRF și o variabilă de formular pentru a putea trimite mesajul. -->
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit">Trimite</button>
+                </form>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

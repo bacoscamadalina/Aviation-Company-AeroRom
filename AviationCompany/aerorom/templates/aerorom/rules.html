@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- Introducem style-urile pe care dorim sa le aiba pagina de politici si reguli -->
+<style>
+
+    h1,h2 {
+        text-align: center
+
+    }
+</style>
+
+<header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+        <h1 class="mt-4" style=" margin-left: 20px">AeroRom - Politici și Reguli</h1>
+    </div>
+</header>
+
+<div class="container mt-5">
+    <section>
+        <h2>POLITICI GENERALE</h2>
+        <p>Compania AeroRom este dedicată să ofere cele mai bune servicii pentru pasagerii noștri. Vă rugăm să citiți cu
+            atenție următoarele reguli și politici pentru a asigura o călătorie sigură și confortabilă.</p>
+    </section>
+
+    <section>
+        <h2>REGULI DE SIGURANȚĂ</h2>
+        <ul>
+            <li>Toți pasagerii trebuie să respecte instrucțiunile echipajului în orice moment.</li>
+            <li>Este interzisă utilizarea dispozitivelor electronice care nu sunt în modul avion în timpul zborului.
+            </li>
+            <li>În caz de urgență, urmați procedurile de evacuare prezentate de echipaj.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>REGULI PENTRU BAGAJE</h2>
+        <h3>Bagaj de mână</h3>
+        <ul>
+            <li>Fiecare pasager are dreptul la un bagaj de mână care să nu depășească 7 kg și dimensiunile de 55 x 40 x
+                20 cm.
+            </li>
+            <li>Obiectele interzise în bagajul de mână includ, dar nu se limitează la, lichide peste 100 ml, arme și
+                materiale inflamabile.
+            </li>
+        </ul>
+
+        <h3>Bagaj de cală</h3>
+        <ul>
+            <li>Fiecare pasager are dreptul la DOAR un bagaj de cală care să nu depășească 23 kg.</li>
+            <li>Taxe suplimentare se aplică pentru bagaje care depășesc greutatea sau dimensiunile permise. Aceste taxe
+                se aplică la aeroport în cazul sesizării neconcordanțelor.
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>POLITICA DE ANULARE ȘI SCHIMBARE A REZERVĂRILOR</h2>
+        <ul>
+            <li>Anulările efectuate cu mai mult de 48 de ore înainte de zbor vor fi eligibile pentru un ramburs
+                parțial.
+            </li>
+            <li>Schimbările de rezervare sunt permise, dar pot fi supuse unor taxe suplimentare.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>CONTACT</h2>
+        <p>Pentru mai multe informații, vă rugăm să contactați serviciul nostru de relații cu clienții la adresa:
+            aerorom@aviatie.com sau să ne sunați la numărul de telefon +40(786)367214.</p>
+    </section>
+</div>
+
+{% endblock %}

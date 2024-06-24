@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+ <!-- Stilurile folosite pentru pagina 'contul meu' -->
+<style>
+    .btn-primary, .btn-success {
+        background-color: #75D5AF;
+        border-color: #75D5AF;
+    }
+
+</style>
+
+<header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center">Contul Meu</h1>
+            <!-- Detalii utilizator -->
+           
+            <h4>Detalii despre utilizator</h4>
+            <form method="POST">
+                {% csrf_token %}
+                {{ user_form.non_field_errors }}
+                <div class="form-group">
+                    {{ user_form.first_name.label_tag }}
+                    {{ user_form.first_name }}
+                </div>
+                <div class="form-group">
+                    {{ user_form.last_name.label_tag }}
+                    {{ user_form.last_name }}
+                </div>
+                <div class="form-group">
+                    {{ user_form.email.label_tag }}
+                    {{ user_form.email }}
+                </div>
+                {{ profile_form.non_field_errors }}
+                <div class="form-group">
+                    {{ profile_form.age.label_tag }}
+                    {{ profile_form.age }}
+                </div>
+                <div class="form-group">
+                    {{ profile_form.passaport.label_tag }}
+                    {{ profile_form.passaport }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Actualizează Detaliile</button>
+                </div>
+            </form>
+
+            <!-- Coșul de cumpărături curent -->
+            <h4>Coșul de Cumpărături</h4>
+             <!-- Daca avem o comanda-->
+            {% if current_order and current_order.items.exists %}
+            <ul class="list-group mb-3">
+                 <!-- Iteram prin elementele comenzii si finalizam comanda-->
+                {% for item in current_order.items.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ item.price.destinations.name }} - {{ item.price.arrival.name }} ({{ item.quantity }})
+                    <span>€{{ item.get_total_price }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="text-center">
+                <a href="{% url 'tickets:cart' %}" class="btn btn-success">Finalizează Comanda</a>
+            </div>
+            {% else %}
+            <p class="text-center">Coșul tău de cumpărături este gol.</p>
+            {% endif %}
+
+            <!-- Comenzile plasate -->
+            <h4>Comenzile Plasate</h4>
+            {% if orders %}
+            <ul class="list-group">
+                 <!-- Iteram prin comenzile plasate -->
+                {% for order in orders %}
+                <li class="list-group-item">
+                    Comandă efectuată la data de {{ order.created_at }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-center">Nu ai plasat nicio comandă.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroRom Company</title>
+
+    <!-- Introducem style-urile pe care dorim sa le aiba pagina de adăugare a recenziilor -->
+    <style>
+        body {
+            font-family: Times New Roman, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 25px;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+
+    </style>
+</head>
+
+<body>
+<header>
+    <div class="container mt-4">
+        <img src="{% static 'logo.png' %}" style="float: left; margin-right: 30px;">
+        <div class="col-md-5 mx-auto text-center center-content">
+            <div style="margin-top: 5px;">
+                <h1>Bun venit la AeroRom! </h1>
+                <p><em>Transformăm visurile tale în zboruri reale - AeroRom, partenerul tău de încredere către
+                    destinațiile visurilor tale!</em></p>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Continutul paginii -->
+<div class="container mt-4">
+    <section>
+        <h2>Despre noi</h2>
+        <p> Compania AeroRom a fost fondată la data de 16.04.2024 și în acest moment se străduiește să ofere cele mai
+            bune servicii de călătorie aeriană pentru pasagerii săi.
+            Având o echipă de experți în domeniu și o gamă largă de destinații, suntem convinși că putem fi alegerea
+            perfectă pentru călătoriile dumneavoastră. În prezent operăm
+            în trei destinații mai greu accesibile și anume: Madeira, Azore și Palermo</p>
+    </section>
+
+    <section>
+        <h2>Serviciile noastre</h2>
+        <ul>
+            <li>
+                <strong>Experiența de rezervare perfectă:</strong> Asigurăm o modalitate ușoară și convenabilă de a
+                rezerva bilete pentru zborurile tale preferate, oferindu-ți un proces fără griji și fără bătăi de cap.
+            </li>
+            <li>
+                <strong>Descoperă lumea cu ofertele noastre speciale:</strong> Explorează cele mai exotice și fascinante
+                destinații cu ofertele noastre de zboruri ieftine. Visează, explorează și trăiește aventura vieții tale!
+            </li>
+            <li>
+                <strong>Asistență VIP la aeroport:</strong> Bucură-te de o experiență fără stres la aeroport cu
+                serviciul nostru premium de asistență VIP, care îți oferă confort și comoditate în fiecare etapă a
+                călătoriei tale.
+            </li>
+            <li>
+                <strong>Oportunități de carieră la înălțime:</strong> Îți deschidem ușile către oportunități de carieră
+                remarcabile. Descoperă job-ul care ți se potrivește perfect și alătură-te echipei noastre AeroRom, unde
+                pasiunea pentru călătorii se îmbină cu profesionalismul și inovația.
+            </li>
+            <li>
+                <strong>Ascultăm vocea pasagerilor: </strong> Feedback-ul tău contează! Suntem dedicați înțelegerii și
+                îmbunătățirii continue a serviciilor noastre, de aceea ascultăm cu atenție opiniile și sugestiile tale
+                pentru a ne asigura că fiecare călătorie cu AeroRom este una de neuitat.
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Orar zboruri</h2>
+        <li>
+            Zboruri zilnice -> Iași-Madeira: 9:30
+        </li>
+        <li>
+            Zboruri zilnice -> Iași-Palermo: 10:30
+        </li>
+        <li>
+            Zboruri zilnice -> Iași-Azore: 11:30
+        </li>
+        <li>
+            Zboruri zilnice -> Madeira-Iași: 21:00
+        </li>
+        <li>
+            Zboruri zilnice -> Palermo-Iași: 21:40
+        </li>
+        <li>
+            Zboruri zilnice -> Azore-Iași: 22:30
+        </li>
+    </section>
+
+    <section>
+        <h2>Oferta lunii</h2>
+        <p>Bucură-te de o oportunitate excepțională! Ai sansa de a te bucura de o experiență de călătorie cu adevărat
+            unică. Rezervă acum peste 5 bilete pentru luna august, indiferent de destinație, și pregătește-te să fii
+            răsfățat cu o reducere incredibilă de 15% în coșul de cumpărături. Este momentul perfect să-ți transformi
+            planurile de călătorie în aventuri memorabile, cu economii substanțiale. Nu rata această ofertă
+            exclusivă!</p>
+    </section>
+    <section>
+        <h2>Politici și reguli</h2>
+        <a href="{% url 'aerorom:rules' %}" class="rules-button">Citește regulamentul</a>
+    </section>
+
+    <section>
+        <h2>Contactează-ne</h2>
+        <p>Dacă aveți orice întrebări sau neclarități, nu ezitați să ne contactați. Suntem aici pentru a vă ajuta și a
+            oferi suportul necesar pentru o experiență de călătorie fără probleme.</p>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Introducem style-urile pe care dorim sa le aiba pagina de destinatii -->
+<style>
+    h1 {
+        clear: both;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    h3 {
+        margin-bottom: 50px;
+    }
+
+    .container {
+        text-align: center; /* Aliniere text și elemente în centru */
+    }
+
+    .destinations-container {
+        margin-top: 30px; /* Spatiere intre logo si destinatii */
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .destination-card {
+        animation: fadeInUp 0.5s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .destination-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .destination-card img {
+        width: 100%;
+        max-width: 400px;
+        display: block;
+        margin: 0 auto;
+        transition: transform 0.3s ease;
+    }
+
+    .destination-card img:hover {
+        transform: scale(1.05);
+    }
+
+</style>
+
+<header>
+    <div class="container mt-4">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+<!-- Continutul paginii (Informatiile sunt adaugate din pagina de admin) -->
+<body>
+<h1>Ofertele noastre speciale ale lunii AUGUST</h1>
+<div class="container destinations-container mt-6">
+    <!-- Iteram prin lista de destinații-->
+    {% for destination in destinations %}
+    <div class="destination-card">
+        <img src="{% static 'destinations/' %}{{ destination.location }}.png" style="margin-top: 40px;">
+        <h3>{{ destination.location }}</h3>
+        <p>{{ destination.description }}</p>
+        <p>Preț: {{ destination.price }}€</p>
+    </div>
+    {% empty %}
+    <p>Nu există destinații disponibile momentan.</p>
+    {% endfor %}
+</div>
+</body>
+
+{% endblock %}

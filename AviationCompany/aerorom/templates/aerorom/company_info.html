@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Introducem style-urile pe care dorim sa le aiba pagina de detalii -->
+<style>
+
+    h1 {
+            margin-bottom: 50px;
+        }
+
+</style>
+
+<header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+<!-- Continutul paginii -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center center-content">
+            <h1>AeroRom - Despre noi</h1>
+            {% for x in info %}
+            <ul>
+                {% for fragment in x.get_description_fragments %}
+                <!-- Pentru a adăuga alineat. (Vezi funcția în views) -->
+                {% if fragment %}
+                <p>{{ fragment }}</p>
+                {% endif %}
+            </ul>
+            {% endfor %}
+            {% endfor %}
+            <h3 class="text-center mb-4">O parte din angajații companiei noastre cu care ne mândrim:</h3>
+            <!-- Atunci când introducem un angajat din pagina de admin, for va itera și va posta detaliile fiecăruia -->
+            {% for y in info %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ y.angajat }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ y.post }}</h6>
+                    <p class="card-text">{{ y.experienta }}</p>
+                    <p class="card-text">{{ y.email }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

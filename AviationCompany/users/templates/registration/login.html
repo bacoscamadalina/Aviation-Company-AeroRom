@@ -1,0 +1,135 @@
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AeroRom{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- Bootstrap și Font Awesome JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Stilurile utilizate pentru pagina de login -->
+    <style>
+        body {
+            font-family: Times New Roman, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 20px;
+
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .card-header {
+            background-color: #75D5AF;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            color: #000000;
+            font-size: 24px;
+            padding: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .form-control {
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #f2f2f2;
+
+        }
+
+        .btn-primary {
+            color: #000000;
+            background-color: #75D5AF;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 20px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #75D5AF;
+        }
+
+        .register-link {
+            color: #75D5AF;
+
+        }
+        .register-link:hover {
+            color: #75D5AF;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+<!-- Antetul paginii -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">AeroRom</a>
+        </div>
+    </nav>
+    <header>
+    <div class="container mt-4 clearfix">
+        <img src="{% static 'logo.png' %}" class="logo" style="float: left;">
+    </div>
+</header>
+
+</header>
+<div class="card">
+    <div class="card-header text-center">Bine ai revenit!</div>
+    <div class="card-body">
+        <form method="post">
+            <!-- Creăm câmpurile pentru username, parola, butonul de conectare -->
+            {% csrf_token %}
+            <div class="form-group">
+                <input name="username" value="" type="text" class="form-control" id="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Conectează-te</button>
+        </form>
+        <!-- Redirectionam catre pagina de inregistrare, la nevoie -->
+        <p class="mt-3">Nu ai un cont? <a href="{% url 'users:register' %}" class="register-link">Înregistrează-te</a>
+        </p>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-auto py-3 bg-dark text-white">
+    <div class="container text-center">
+        <span>&copy; 2024 AeroRom - Toate drepturile rezervate</span>
+    </div>
+</footer>
+</body>
+
+</html>

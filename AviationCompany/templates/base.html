@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AeroRom{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- Bootstrap și Font Awesome JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Stilurile folosite pentru tot proiectul -->
+    <style>
+    body {
+        font-family: Times New Roman, sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+<!-- Antetul paginii -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <!-- AeroRom în stânga -->
+            <a class="navbar-brand" href="/aerorom/home/">AeroRom</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Elemente din bara de navigare în dreapta -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aerorom/company-info/">Despre noi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tickets/">Rezervă zbor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aerorom/destinations/">Destinații</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aerorom/contact/">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aerorom/jobs/">Cariere</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aerorom/add-review/">Recenzii</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:contul_meu' %}">Contul meu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:logout' %}">Deconectează-te</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}">Conectează-te</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="content">
+    <!-- Blocul pentru afișarea mesajelor -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li
+                {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="content">
+        {% block content %}
+        <!-- Conținutul specific al fiecărei pagini -->
+        {% endblock %}
+    </div>
+
+    <!-- Elementul din subsol -->
+    <footer class="footer mt-auto py-3 bg-dark text-white">
+        <div class="container text-center">
+            <span>&copy; 2024 AeroRom - Toate drepturile rezervate</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>
