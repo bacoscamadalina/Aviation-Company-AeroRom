@@ -109,7 +109,7 @@ Clonează repository-ul de pe GitHub în directorul tău local:
 % cd AviationCompany
 ```
 
-### 2. Creează un virtual environment folosind venv și activează-l:
+### 2. Creează în IDE un virtual environment folosind venv și activează-l:
 ```commandline
 # Pentru Windows
 % python -m venv venv
