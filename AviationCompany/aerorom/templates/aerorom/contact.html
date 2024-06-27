@@ -77,7 +77,7 @@
         <div class="col-md-6">
             <ul class="list-unstyled contact-info">
                 <li>
-                    <i class="fa fa-map-marker" aria-hidden="true"></i> Adresa: Str. Aviatiei , nr 27
+                    <i class="fa fa-map-marker" aria-hidden="true"></i> Adresă: Str. Aviației , nr 27, Iași
                 </li>
                 <li>
                     <i class="fa fa-phone" aria-hidden="true"></i> Telefon: +40(786)367214
@@ -95,25 +95,19 @@
                 {% for i in contact %}
                 <div class="form-group">
                     <li>
-                        <label for="id_name"> Nume: {{ i.name }}</label>
+                        <label for="id_name"> {{ i.name }}</label>
                         <input type="text" name="name" id="id_name" class="form-control" required>
                     </li>
                 </div>
                 <div class="form-group">
-                    <li>
-                        <label for="id_name"> Număr de telefon: {{ i.phone_number }}</label>
-                        <input type="text" name="phone" id="id_phone" class="form-control" required>
                     </li>
-                </div>
-                <div class="form-group">
-                    </li>
-                    <label for="id_email">Email: {{ i.email }} </label>
+                    <label for="id_email">{{ i.email }} </label>
                     <input type="email" name="email" id="id_email" class="form-control" required>
                     </li>
                 </div>
                 <div class="form-group">
                     <li>
-                        <label for="id_message">Mesaj: {{ i.message }} </label>
+                        <label for="id_message">{{ i.message }} </label>
                         <textarea name="message" id="id_message" class="form-control" required></textarea>
                     </li>
                 </div>

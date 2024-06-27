@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import Job, Destination, Reviews, CompanyInfo, Contact
 from django.views.generic import TemplateView, ListView, CreateView
 from .forms import ContactForm
 from django.urls import reverse_lazy, reverse
+
 
 
 # Create your views here.
@@ -42,8 +44,8 @@ class ContactView(CreateView):  # vedere pentru a crea noi obiecte in baza de da
 
     def form_valid(self, form):  # metoda care va fi apelata dupa ce utilizatorul trimite datele
         form.save()  # salvam datele din formular
+        messages.success(self.request, "Formularul a fost trimis cu succes")  # Afișăm mesajul de succes
         return super().form_valid(form)  # apelam metoda form_valid .
-
 
 # Clasa pentru pagina: Cariere
 class JobInfoView(ListView):
