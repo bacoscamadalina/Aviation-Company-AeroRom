@@ -1,5 +1,5 @@
 from decimal import Decimal
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -34,10 +34,18 @@ class TicketsOrderView(View):
 
         passengers = int(passengers_str)
 
-        if arrival_id == departure_id:   # daca orasul de plecare = destinatia
+        if arrival_id == departure_id:  # daca orasul de plecare = destinatia
             return HttpResponse('Nu există zbor pentru această rută. Introduceți o rută validă')
 
         try:
+            depart_date_obj = datetime.strptime(depart_date, '%Y-%m-%d').date()  # Convertim in obiect de tip dată
+            return_date_obj = datetime.strptime(return_date, '%Y-%m-%d').date()
+            if depart_date_obj < datetime.now().date() + timedelta(
+                    days=1):  # dorim sa putem cumpăra bilet doar de mâine
+                return HttpResponse('Nu puteți cumpăra bilete pentru zboruri anterioare zilei de mâine.')
+            if flight_type == 'round_trip':
+                if return_date_obj < depart_date_obj:  # Verificam ca data de întoarcere să nu fie anterioară datei de plecare
+                    return HttpResponse('Data de întoarcere nu poate fi anterioară datei de plecare.')
             if flight_type == 'one_way':  # daca tipul de zbor este doar dus
                 price = Price.objects.get(destinations_id=departure_id, arrival_id=arrival_id, flight_type='one_way',
                                           start_date__lte=depart_date,
