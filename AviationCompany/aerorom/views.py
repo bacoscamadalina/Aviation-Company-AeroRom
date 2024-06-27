@@ -29,7 +29,7 @@ class DestinationsView(ListView):
 # Clasa pentru pagina: Contact are mosteneste din CreateView
 class ContactView(CreateView):  # vedere pentru a crea noi obiecte in baza de date
     model = Contact  # modelul de referinta din baza de date
-    context_object_name = 'contact'  # Accesam în șabloane obiectele "Contact" sub numele "contact"
+    context_object_name = 'contact'  # Accesam în șabloane obiectele "Contact" sub numele "contact”
     template_name = 'aerorom/contact.html'
     form_class = ContactForm  # din forms.py (colectam date de la utilizatori)
     success_url = '/aerorom/contact/'  # dupa ce trimitem formularul, redirectionam tot catre Contact

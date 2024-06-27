@@ -29,21 +29,12 @@ class TicketsOrderView(View):
         passengers_str = request.POST.get('passengers')  # numarul de pasageri
         flight_type = request.POST.get('flight-type')  # tipul de zbor
 
-<<<<<<< HEAD
         if not passengers_str:
             return HttpResponse('Nu ați introdus numărul de pasageri')
 
         passengers = int(passengers_str)
 
-        if arrival_id == departure_id:
-=======
-        if not passengers_str:   # daca nu este introdus numarul de pasageri
-            return HttpResponse('Nu ați introdus numărul de pasageri')  
-
-        passengers = int(passengers_str)
-
         if arrival_id == departure_id:   # daca orasul de plecare = destinatia
->>>>>>> a269dc0ceb04b16552e559f0c8c93b2cbce2b40f
             return HttpResponse('Nu există zbor pentru această rută. Introduceți o rută validă')
 
         try:
